@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expresiones Regulares</title>
+</head>
+
+<body>
+    <h1>Fundamentos de JavaScript</h1>
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odio delectus eum autem fugiat quaerat illo recusandae
+    voluptas, laudantium aspernatur, assumenda natus dolore suscipit tenetur doloribus accusamus. Non perspiciatis rem
+    laborum!
+    <script>
+        /*
+        Expresiones Regulares
+        Son una secuencia de caracteres que forma un patrón
+        de búsqueda, principalmente utilizada para la
+        busqueda de patrones de cadenas de caracteres.
+        */
+
+        let cadena = "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odio delectus lorem eum autem fugiat quaerat illo recusandae voluptas, laudantium aspernatur, assumenda natus dolore suscipit tenetur doloribus accusamus. Non perspiciatis rem laborum!";
+
+        let expReg = new RegExp("lorem", "ig"); //COMODIN "ig" ignora mayusculas y busca todas las coincidencias
+        console.log(expReg.test(cadena)); // Comprueba si el patrón existe
+        console.log(expReg.exec(cadena));
+
+        let expReg2 = /lorem/ig;
+        console.log(expReg2.test(cadena)); // Comprueba si el patrón existe
+        console.log(expReg2.exec(cadena));
+
+        //Uso de comodines
+        let expReg3 = /\d/ig;
+        console.log(expReg3.test(cadena)); // Comprueba si el patrón existe
+        console.log(expReg3.exec(cadena));
+
+        let expReg4 = /[0-9]/ig;
+        console.log(expReg4.test(cadena)); // Comprueba si el patrón existe
+        console.log(expReg4.exec(cadena));
+
+
+    </script>
+</body>
+
+</html>

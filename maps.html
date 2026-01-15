@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map</title>
+</head>
+<body>
+    <h1>Tipos de datos en JS: Map</h1>
+    <script>
+        //Son objetos que permiten almacenar valores asociados a manera de objeto primitivo
+
+        let mapa = new Map();
+        mapa.set("nombre", "Joan");
+        mapa.set("apellido", "Calderon");
+        mapa.set("edad", 25);
+
+        console.log(mapa);
+        console.log(mapa.size); //Cuantos elementos tiene el mapa
+        console.log(mapa.has("nombre")); //Evaluar si una llave existe
+        console.log(mapa.get("nombre")); //Obtener un valor
+
+        mapa.set("nombre", "Jonathan MirCha"); //Reescribir una propiedad
+        console.log(mapa.get("nombre"));
+
+        mapa.delete("apellido"); //Eliminar una propiedad
+        console.log(mapa);
+
+        for (const [key, value] of mapa) { //Recorrer un mapa
+            console.log(`Llave: ${key}, Valor: ${value}`); 
+        }
+
+        const mapa2 = new Map([ //Otra forma de inicializar un mapa 
+            ["nombre", "Kenai"],
+            ["edad", 7],
+            ["animal", "perro"]
+        ]);
+
+        console.log(mapa2);
+
+        const llavesMapa2 = [...mapa2.keys()]; //Usando destructuracion para trabajar con valores o propiedades
+        const valoresMapa2 = [...mapa2.values()]; //del mapa
+
+
+    </script>
+</body>
+</html>

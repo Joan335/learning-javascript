@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operador Cortocircuito</title>
+</head>
+
+<body>
+    <h1>Fundamentos de JavaScript</h1>
+    <script>
+        /*
+        Cortocircuito OR - cuando el valor de la izquierda en la
+        expresion siempre pueda validar a true, es el valor que
+        se cargara por defecto
+
+        Cortocircuito AND - cuando el valor de la izquierdad en la
+        expresion siempre pueda validar a false, es el valor que se
+        cargara por defecto
+        */
+
+        function saludar1(nombre) {
+            nombre = nombre || "Desconocido";
+            console.log(`Hola ${nombre}`);
+        }
+
+        saludar1("Joan");
+        saludar1();
+
+        //valores que tienden a false
+        console.log(false || "Valor de la derecha");
+        console.log(null || "Valor de la derecha");
+        console.log(undefined || "Valor de la derecha");
+        console.log("" || "Valor de la derecha");
+        console.log(0 || "Valor de la derecha");
+
+        function saludar(nombre) {
+            nombre = nombre && "Desconocido";
+            console.log(`Hola ${nombre}`);
+        }
+
+        saludar("Joan");
+        saludar();
+
+
+    </script>
+</body>
+
+</html>

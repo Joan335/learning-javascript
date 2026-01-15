@@ -1,0 +1,76 @@
+JavaScript es un lenguaje single thread (solo hilo)
+JavaScript trabajo bajo un modelo asincrono y no bloqueante
+
+
+JavaScript usa un modelo asincrono y no bloqueante, con un loop de eventos implementado en un solo hilo, (single thread)
+para operaciones de entrada y salidad (I/O).
+
+Procesamiento Single Thread y Multi thread: los hilos son las unidad basicas de ejecucion de cada proceso que realiza nuestra
+maquina 
+
+Operaciones de CPU: son las que ocupan más tiempo consumiendo los procesos de la CPU
+Operaciones I/O: esperan la petición de un recurso solicitado y que retorna una salida
+Concurrencia: dos o más tareas progresan simultaneamente
+paralelismo: dos o más tareas se ejecutan al mismo tiempo
+Operaciones bloqueantes y no bloqueantes: fase de espera cada vez que se ejecuta una operación del codigo, la forma
+en que una operación toma la fase de espera, las bloqueantes no devuelven el control a la aplicación hasta terminar
+toda la tarea, no bloqueante las operaciones se ejecutan y devuelven inmediatamente el control al hilo principal
+Operaciones sincronas y asincronas: se refiere a cuando tendra lugar la respuesta. Sincrono la respuesta sucede en
+el presente en el tiempo inmediato y asincrono la respuesta sucede en un futuro, la operacion asincrona no espera
+el resultado
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concepto Asincronia</title>
+</head>
+<body>
+    <script>
+        // Código sincrono bloqueante
+        (() => {
+            console.log("Código Síncrono");
+            console.log("Inicio");
+
+            function dos() {
+                console.log("Dos");
+            }
+
+            function uno() {
+                console.log("Uno");
+                dos();
+                console.log("Tres");
+            }
+
+            uno();
+            console.log("Fin"); 
+        })(); //Revisar con loupe
+
+        console.log("************************");
+
+        // Código asincrono no bloqueante
+        (() => {
+            console.log("Codigo Asincrono");
+            console.log("Inicio");
+
+            function dos() {
+                setTimeout(function () {
+                    console.log("Dos");
+                }, 1000);
+            }
+
+            function uno() {
+                setTimeout(function () {
+                    console.log("Uno");
+                }, 0);
+                dos();
+                console.log("Tres");
+            }
+
+            uno();
+            console.log("Fin");
+        })();
+    </script>
+</body>
+</html>

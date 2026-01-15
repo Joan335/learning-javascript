@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spread/Rest</title>
+</head>
+<body>
+    <h1>Fundamentos de JavaScript</h1>
+    <script>
+        //Parametros Rest
+        function sumar(a,b,...c){
+            let resultado = a + b;
+
+            c.forEach(function (n) {
+                resultado += n;
+            });
+
+            return resultado;
+        }
+
+        console.log(sumar(2,3,12,342))
+    </script>
+</body>
+</html>

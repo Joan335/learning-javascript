@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeakSet y WeakMap</title>
+</head>
+<body>
+    <h1>Tipos de datos en JS: WeakSet y WeakMap</h1>
+    <script>
+        //Se generan referencias debiles (objetos) que cuando ya no se usan se limpian con facilidad por el navegador
+        
+        const ws = new WeakSet(); //Los elementos de un weakset solo se pueden agregar con el metodo .add
+
+        let valor1 = { "valor1": 1};
+        let valor2 = { "valor2": 2};
+        let valor3 = { "valor3": 3};
+
+        ws.add(valor1);
+        ws.add(valor2);
+        console.log(ws);
+
+        console.log(ws.has(valor1)); //si tienen alguna referencia
+
+        ws.delete(valor2); //Eliminar una referencia
+        console.log(ws);
+
+        ws.add(valor2);
+        ws.add(valor3);
+        console.log(ws);
+
+        console.log("******************************************************");
+        //WeakMap 
+        
+        const wm = new WeakMap();
+        let llave1 = {};
+        let llave2 = {};
+        let llave3 = {};
+
+        wm.set(llave1, 1); //Añadir elementos a un weakmap
+        wm.set(llave2, 2);
+        console.log(wm);
+
+        console.log(wm.has(llave1)); //Existe una referencia en el weakmap
+
+        console.log(wm.get(llave1)); //Obtener un valor del weakmap
+
+        wm.delete(llave2); //Eliminar del weakmap
+        console.log(wm);
+
+        wm.set(llave2, 2);
+        wm.set(llave3, 3);
+        console.log(wm);
+
+        llave1 = null; //Nulificando las referencias del weakmap se borran de la estructura
+    </script>
+</body>
+</html>

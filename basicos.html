@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fundamentos JavaScript</title>
+</head>
+<body>
+    <h1>Fundamentos JavaScript</h1>
+    <script>
+        //Función declarada
+        function estoEsUnaFuncion() {
+            console.log("Uno");
+            console.log("Dos");
+            console.log("Tres");
+        };
+
+        //Invocación de funciones
+        // estoEsUnaFuncion();
+
+        // function unaFuncionQueDevuelveValor() {
+        //     console.log("Uno");            
+        //     console.log("Dos");            
+        //     console.log("Tres");    
+        //     return "La función ha retornado una cadena de texto";        
+        // }
+
+        // console.log(unaFuncionQueDevuelveValor());
+
+        //Función que recibe parametros
+        function saludar(nombre, edad) {
+            console.log(`Hola mi nombre es ${nombre} y mi edad es ${edad} años`);
+        }
+        
+        saludar("Joan", 25);
+
+        const colores = ["Rojo","Verde","Azul"];
+        colores.forEach(function (el) {
+            console.log(`<li>${el}</li>`)
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 9</title>
+</head>
+
+<body>
+    <h1>Ejercicio 9 con manejo de errores</h1>
+    <script>
+        //SOLUCION MANEJANDO LOS ERRORES DE UNA FORMA MÁS ADECUADA
+        class StringError extends Error {
+            constructor(message) {
+                super(message);
+                this.name = "StringError";
+            }
+        }
+
+        class IMBDError extends Error {
+            constructor(message) {
+                super(message);
+                this.name = "IMBDError";
+                delete this.stack;
+            }
+        }
+
+        class TitleError extends Error {
+            constructor(message) {
+                super(message);
+                this.name = "TitleError";
+            }
+        }
+
+        class DirectorError extends Error {
+            constructor(message) {
+                super(message);
+                this.name = "DirectorError";
+            }
+        }
+
+        class NumberError extends Error {
+            constructor(message) {
+                super(message);
+                this.name = "NumberError";
+            }
+        }
+
+        class EstrenoError extends Error {
+            constructor(message) {
+                super(message);
+                this.name = "EstrenoError";
+            }
+        }
+
+        class ArrayError extends Error {
+            constructor(message) {
+                super(message);
+                this.name = "ArrayError";
+            }
+        }
+
+        class GenderError extends Error {
+            constructor(message) {
+                super(message);
+                this.name = "GenderError";
+            }
+        }
+
+        class RatingError extends Error {
+            constructor(message) {
+                super(message);
+                this.name = "RatingError";
+            }
+        }
+
+        class Pelicula {
+            constructor({ id, titulo, director, estreno, pais, generos, calificacion }) {
+                this.id = id;
+                this.titulo = titulo;
+                this.director = director;
+                this.estreno = estreno;
+                this.pais = pais;
+                this.generos = generos;
+                this.calificacion = calificacion;
+
+                try {
+                    this.validarIMDB(id);
+                } catch (err) {
+                    if (err instanceof StringError) {
+                        console.log(err);
+                        setTimeout(() => {
+                            alert(`El IMDB id "${id}" ingresado, NO es una cadena de texto`);
+                        }, 1000);
+                    }
+
+                    if (err instanceof IMBDError) {
+                        console.log(err);
+                        setTimeout(() => {
+                            alert(`IMDB id "${id}" no es valido, debe tener 9 caracteres, los 2 primeros letras minusculas, los 7 restantes numeros`);
+                        }, 1000)
+                    }
+                }
+
+                try {
+                    this.validarTitulo(titulo);
+                } catch (err) {
+                    if (err instanceof StringError) {
+                        console.log(err);
+                        setTimeout(() => {
+                            alert(`El título "${titulo}" ingresado, NO es una cadena de texto`);
+                        }, 1000);
+                    }
+
+                    if (err instanceof TitleError) {
+                        console.log(err);
+                        setTimeout(() => {
+                            alert(`El título excede el número de caracteres permitidos 100`);
+                        }, 1000)
+                    }
+                }
+
+                try {
+                    this.validarDirector(director);
+                } catch (err) {
+                    if (err instanceof StringError) {
+                        console.log(err);
+                        setTimeout(() => {
+                            alert(`El director "${director}" ingresado, NO es una cadena de texto`);
+                        }, 1000);
+                    }
+
+                    if (err instanceof DirectorError) {
+                        console.log(err);
+                        setTimeout(() => {
+                            alert(`El director excede el número de caracteres permitidos 50`);
+                        }, 1000)
+                    }
+                }
+
+                try {
+                    this.validarEstreno(estreno);
+                } catch (err) {
+                    if (err instanceof NumberError) {
+                        console.log(err);
+                        setTimeout(() => {
+                            alert(`El estreno "${estreno}" ingresado, NO es un número`);
+                        }, 1000);
+                    }
+
+                    if (err instanceof EstrenoError) {
+                        console.log(err);
+                        setTimeout(() => {
+                            alert(`El estreno no es válido, debe ser un número de 4 digitos`);
+                        }, 1000)
+                    }
+                }
+
+                try {
+                    this.validarPais(pais);
+                } catch (err) {
+                    if (err instanceof ArrayError) {
+                        console.log(err);
+                        setTimeout(() => {
+                            alert(err.message);
+                        }, 1000);
+                    }
+                }
+
+                try {
+                    this.validarGeneros(generos);
+                } catch (err) {
+                    if (err instanceof ArrayError) {
+                        console.log(err);
+                        setTimeout(() => {
+                            alert(err.message);
+                        }, 1000);
+                    }
+
+                    if (err instanceof GenderError) {
+                        console.log(err);
+                        console.log(Pelicula.generosAceptados());
+                        setTimeout(() => {
+                            alert(`Revisa bien los generos ingresados\n${Pelicula.generosAceptados()}`)
+                        }, 1000)
+                    }
+                }
+
+                try {
+                    this.validarCalificacion(calificacion);
+                } catch (err) {
+                    if (err instanceof NumberError) {
+                        console.log(err);
+                        setTimeout(() => {
+                            alert(err.message);
+                        }, 1000);
+                    }
+
+                    if (err instanceof RatingError) {
+                        console.log(err);
+                        setTimeout(() => {
+                            alert(`Revisa bien la calificacion ingresada, debe ser un número entre 0 y 10`)
+                        }, 1000)
+                    }
+                }
+
+            }
+            static get listaGeneros() {
+                return ["Action", "Adult", "Adventure", "Animation", "Biography", "Comedy", "Crime", "Documentary", "Drama", "Family", "Fantasy", "Film Noir", "Game - Show", "History", "Horror", "Musical", "Music", "Mystery", "News", "Reality - TV", "Romance", "Sci - Fi", "Short", "Sport", "Talk - Show", "Thriller", "War", "Western"];
+            }
+
+            static generosAceptados() {
+                return `Los géneros aceptados son: ${Pelicula.listaGeneros.join(", ")}`;
+            }
+
+            validarCadena(propiedad, valor) {
+                if (!valor) throw new StringError(`${propiedad} "${valor}" está vacío`);
+
+                if (typeof valor !== "string") throw new StringError(`${propiedad} "${valor}" ingresado, NO es una cadena de texto`);
+
+                return true;
+            }
+
+            validarNumero(propiedad, valor) {
+                if (!valor) throw new NumberError(`${propiedad} "${valor}" está vacío`);
+
+                if (typeof valor !== "number") throw new NumberError(`${propiedad} "${valor}" ingresado, NO es un número`);
+
+                return true;
+            }
+
+            validarArreglo(propiedad, valor) {
+                if (!valor) throw new ArrayError(`${propiedad} "${valor}" está vacío`);
+
+                if (!(valor instanceof Array)) throw new ArrayError(`${propiedad} "${valor}" ingresado, NO es un arreglo`);
+
+                if (valor.length === 0) throw new ArrayError(`${propiedad} "${valor}" no tiene datos`);
+
+                for (let cadena of valor) {
+                    if (typeof cadena != "string") throw new ArrayError(`El valor "${cadena}" ingresado, NO es una cadena de texto`);
+                }
+
+                return true;
+            }
+
+            validarLongitudCadena(propiedad, valor, longitud) {
+                if (valor.length > longitud) return false;
+
+                return true;
+            }
+
+            validarIMDB(id) {
+                if (this.validarCadena("IMDB id", id)) {
+                    if (!(/^([a-z]){2}([0-9]){7}$/.test(id))) {
+                        throw new IMBDError(`IMDB id "${id}" no es valido, debe tener 9 caracteres, los 2 primeros letras minusculas, los 7 restantes numeros`);
+                    }
+                }
+            }
+
+            validarTitulo(titulo) {
+                if (this.validarCadena("Título", titulo)) {
+                    if (!(this.validarLongitudCadena("Título", titulo, 100))) {
+                        throw new TitleError(`El título "${titulo}" excede el número de caracteres permitidos 100`)
+                    };
+                }
+            }
+
+            validarDirector(director) {
+                if (this.validarCadena("Director", director)) {
+                    if (!(this.validarLongitudCadena("Director", director, 50))) {
+                        throw new DirectorError(`El director "${director}" excede el número de caracteres permitidos 50`);
+                    };
+                }
+            }
+
+            validarEstreno(estreno) {
+                if (this.validarNumero("Año de estreno", estreno)) {
+                    if (!(/^([0-9]){4}$/.test(estreno))) {
+                        throw new EstrenoError(`Año de estreno "${estreno}" no es válido, debe ser un número de 4 digitos`);
+                    }
+                }
+            }
+
+            validarPais(pais) {
+                this.validarArreglo("País", pais);
+            }
+
+            validarGeneros(generos) {
+                if (this.validarArreglo("Géneros", generos)) {
+                    for (const genero of generos) {
+                        if (!Pelicula.listaGeneros.includes(genero)) {
+                            throw new GenderError(`Género(s) incorrectos "${generos.join(",")}"`);
+
+                        }
+                    }
+                }
+            }
+
+            validarCalificacion(calificacion) {
+                if (this.validarNumero("Calificación", calificacion)) {
+                    if (calificacion < 0 || calificacion > 10) {
+                        throw new RatingError(`La calificación tiene que estar en un rango entre 0 y 10`)
+                    } else {
+                        this.calificacion = calificacion.toFixed(1);
+                    }
+                }
+            }
+
+            fichaTecnica() {
+                console.info(`Ficha Técnica:\nTítulo: "${this.titulo}"\nDirector: "${this.director}"\nAño: "${this.estreno}"\nPais: "${this.pais.join("-")}"\nGéneros:"${this.generos.join(", ")}"\nCalificacion: "${this.calificacion}"\nIMDB id: "${this.id}"`);
+            }
+        }
+
+        const peli = new Pelicula({
+            id: "as1234567",
+            titulo: "asdjashjdhjasdhjashjdsdasdasdsadasdsdasdasd",
+            director: "2sdasda",
+            estreno: 2222,
+            pais: ["colombia"],
+            generos: ["Action"],
+            calificacion: 2.2112
+        })
+
+        peli.fichaTecnica();
+
+        const misPelis = [
+            {
+                id: "tt1234567",
+                titulo: "Titulo de la peli",
+                director: "Director de la peli",
+                estreno: 2020,
+                pais: ["México"],
+                generos: ["Action"],
+                calificacion: 7.78
+            },
+            {
+                id: "tt1234567",
+                titulo: "Batman El Caballero de La Noche",
+                director: "Director de la peli",
+                estreno: 2020,
+                pais: ["México"],
+                generos: ["Action"],
+                calificacion: 7.78
+            },
+            {
+                id: "tt1234567",
+                titulo: "El Padrino",
+                director: "Director de la peli",
+                estreno: 2020,
+                pais: ["México"],
+                generos: ["Action"],
+                calificacion: 7.78
+            }
+        ]
+
+        misPelis.forEach(el => new Pelicula(el).fichaTecnica());
+
+
+    </script>
+</body>
+
+</html>

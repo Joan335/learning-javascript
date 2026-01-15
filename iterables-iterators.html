@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iterables y Iterators</title>
+</head>
+<body>
+    <h1>Fundamentos de JS</h1>
+    <script>
+        const iterable = [1,2,3,4,5]; //Un iterable es cualquier objeto que se pueda iterar
+        const iterable1 = "Hola MUndo";
+        const iterable2 = new Set([1,2,3,4,5]);
+        const iterable3 = new Map([
+            ["nombre", "jon"],
+            ["edad", 35]
+        ]);
+
+        
+        const iterador = iterable[Symbol.iterator](); //Accedemos al iterador del iterable
+
+        console.log(iterador.next()); //Al tener el objeto iterador instanciado, se puede tirar con el metodo next
+        console.log(iterador.next());
+
+        let next = iterador.next();
+
+        while (!next.done) { //Recorrer el iterador de forma dinamica
+            console.log(next.value);
+            next = iterador.next();
+        }
+    </script>
+</body>
+</html>

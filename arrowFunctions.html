@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrow Functions</title>
+</head>
+<body>
+    <h1>Fundamentos de Javascript</h1>
+    <script>
+        //Función flecha sin parametros y en una sola línea
+        const saludar = nombre => console.log(`Hola ${nombre}`);
+        saludar("Irma");
+
+        const sumar = (a,b) => a + b;
+        console.log(sumar(4,4));
+
+        const funcionDeVariasLineas = () => {
+            console.log("Uno");
+            console.log("dos");
+            console.log("tres");
+        }
+
+        funcionDeVariasLineas();
+
+        const perro = {
+            nombre: "Kenai",
+            ladrar: () => {
+                console.log(this);
+            }
+        };
+
+        perro.ladrar();
+    </script>
+</body>
+</html>

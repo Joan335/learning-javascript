@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>This</title>
+</head>
+
+<body>
+    <h1>Contexto This</h1>
+    <script>
+        //El this es una palabra que hace referencia al objeto en el que se está trabajando
+        console.log(this);
+        console.log(window);
+        console.log(this === window);
+
+        this.nombre = "Contexto Global";
+        console.log(this.nombre);
+
+        function imprimir() {
+            console.log(this.nombre);
+        }
+
+        imprimir();
+
+        const obj = {
+            nombre: "Contexto Objeto",
+            imprimir: function () {
+                console.log(this.nombre);
+            }
+        }
+
+        obj.imprimir();
+
+        const obj2 = {
+            nombre: "Contexto Objeto 2",
+            imprimir //Hace referencia a la función que está declarada en el scope global, el contexto en el que 
+            //se encuenta this.nombre es el de obj2
+        }
+
+        obj2.imprimir();
+
+        const obj3 = {
+            nombre: "Contexto Objeto 3",
+            imprimir: () => { //La arrow function mantiene un enlace del contexto donde ha sido creado el objeto
+                console.log(this.nombre); //Las arrow function no manejan su propio scope, busca el contexto del
+            }               //padre 
+        }
+
+        obj3.imprimir();
+
+        function Persona(nombre) {
+            this.nombre = nombre;
+            //return console.log(this.nombre);
+
+            // return function () {
+            //     console.log(this.nombre, 22); //Esta funcion no tiene una propiedad nombre, lee el this del 
+            // }                                 //contexto global
+            
+            return () => console.log(this.nombre); //la arrow function no crea un scope, hereda el contexto
+        }
+
+        let jon = new Persona("Jon");
+        jon();
+    </script>
+</body>
+
+</html>

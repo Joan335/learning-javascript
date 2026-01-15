@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Apis</title>
+</head>
+<body>
+    <h1>Web Apis</h1>
+    <button id="btnHablar">Hablar</button>
+    
+    <script>
+        //Las apis web son todos los objetos e interfaces que nos permiten interactuar con el navegador
+        const hablar = (texto) => {
+            const mensaje = new SpeechSynthesisUtterance(texto);
+            speechSynthesis.speak(mensaje);
+        };
+
+        document.getElementById("btnHablar").addEventListener("click", () => {
+            hablar("Hola, soy tu amigo y docente digital Jonathan Mircha");
+        });
+    </script>
+</body>
+</html>

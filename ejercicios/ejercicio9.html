@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 9</title>
+</head>
+
+<body>
+    <h1>Ejercicios 9</h1>
+    <script>
+        /*
+        27) Programa una clase llamada Pelicula.
+
+        La clase recibirá un objeto al momento de instanciarse con los siguentes datos: id de la película en IMDB, titulo, director, año de estreno, país o países de origen, géneros y calificación en IMBD.
+        Todos los datos del objeto son obligatorios.
+        Valida que el id IMDB tenga 9 caracteres, los primeros 2 sean letras y los 
+            7 restantes números.
+        Valida que el título no rebase los 100 caracteres.
+        Valida que el director no rebase los 50 caracteres.
+        Valida que el año de estreno sea un número entero de 4 dígitos.
+        Valida que el país o paises sea introducidos en forma de arreglo.
+        Valida que los géneros sean introducidos en forma de arreglo.
+        Valida que los géneros introducidos esten dentro de los géneros 
+            aceptados*.
+        Crea un método estático que devuelva los géneros aceptados*.
+        Valida que la calificación sea un número entre 0 y 10 pudiendo ser 
+            decimal de una posición.
+        Crea un método que devuelva toda la ficha técnica de la película.
+        Apartir de un arreglo con la información de 3 películas genera 3 
+            instancias de la clase de forma automatizada e imprime la ficha técnica 
+            de cada película.
+
+        Géneros Aceptados: Action, Adult, Adventure, Animation, Biography, Comedy, Crime, Documentary ,Drama, Family, Fantasy, Film Noir, Game-Show, History, Horror, Musical, Music, Mystery, News, Reality-TV, Romance, Sci-Fi, Short, Sport, Talk-Show, Thriller, War, Western
+        */
+
+        //Ejercicio #27
+        class Pelicula {
+            constructor(idIMDB, title, filmDirector, releaseYear, countries, movieGenres, rating) {
+                // Validación del id 9 caracteres, los 2 primeros letras y resto números
+                if (!/^([A-Za-z]{2}\d{7})$/.test(idIMDB)) {
+                    throw new Error("ID de la película invalido");
+                }
+
+                // Validación del título no más de 100 caracteres
+                if (title.length > 100) {
+                    throw new Error("El título no es valido sobrepasa los 100 caracteres");
+                }
+
+                // Validación del nombre del director no más de 100 caracteres
+                if (filmDirector.length > 50) {
+                    throw new Error("El nombre del director no es valido sobrepasa los 50 caracteres");
+                }
+
+                // Validación del año estreno que sea un entero de 4 dígitos
+                if (!Number.isInteger(releaseYear) || releaseYear.toString().length !== 4) {
+                    throw new Error(`El año de estreno ${releaseYear} no es valido, deben tener 4 dígitos`);
+                }
+
+                // Validación de los paises en forma de arreglo
+                if (!(countries instanceof Array)) throw new Error(`El valor "${countries}" ingresado para los paises, NO es un arreglo`);
+
+                // Validación que el arreglo de los paises no este vacío
+                if (countries.length === 0) throw new Error("El arreglo de los paises está vacío");
+
+                // Validación de los generos en forma de arreglo
+                if (!(movieGenres instanceof Array)) throw new Error(`El valor "${movieGenres}" ingresado para los géneros, NO es un arreglo`);
+
+                // Validación que el arreglo de los géneros no este vacío
+                if (movieGenres.length === 0) throw new Error("El arreglo de los géneros está vacío");
+
+                // Validación para los géneros aceptados
+                const generosNoValidos = movieGenres.filter(valor => !Pelicula.generosAceptados().includes(valor));
+
+                if (generosNoValidos.length > 0) {
+                    throw new Error(`Géneros invalidos: ${generosNoValidos}`);
+                }
+
+                if (!(Number.isInteger(rating * 10)) || rating < 0 || rating > 10) {
+                    throw new Error(`La calificación ${rating} no es valida`);
+                }
+
+                this.idIMDB = idIMDB;
+                this.title = title;
+                this.filmDirector = filmDirector;
+                this.releaseYear = releaseYear;
+                this.countries = countries;
+                this.movieGenres = movieGenres;
+                this.rating = rating;
+            }
+
+            static generosAceptados() {
+                return ["Action", "Adult", "Adventure", "Animation", "Biography", "Comedy", "Crime", "Documentary", "Drama", "Family", "Fantasy", "Film Noir", "Game - Show", "History", "Horror", "Musical", "Music", "Mystery", "News", "Reality - TV", "Romance", "Sci - Fi", "Short", "Sport", "Talk - Show", "Thriller", "War", "Western"];
+            }
+
+            mostrarFichaTecnica() {
+                console.info({
+                    id_IMDB: this.idIMDB,
+                    titulo: this.title,
+                    director: this.filmDirector,
+                    año_lanzamiento: this.releaseYear,
+                    paises_estreno: this.countries,
+                    generos_pelicula: this.movieGenres,
+                    calificacion: this.rating
+                })
+            };
+        }
+
+        const rapidosYFuriosos = new Pelicula("as1234567", "rapidos y furiosos", "del toro", 2025, ["Colombia"], ["Adult"], 2.2);
+
+        rapidosYFuriosos.mostrarFichaTecnica();
+
+        const peliculas = [["as1234567", "rapidos y furiosos", "del toro", 2025, ["Colombia"], ["Adult"], 2.2],
+        ["as1234442", "hollaa", "del toro", 2025, ["Colombia"], ["Adult"], 2.2],
+        ["as1234567", "sssss", "del toro", 2025, ["Colombia"], ["Adult"], 2.2]]
+
+        console.log(peliculas);
+
+        for (let pelicula of peliculas) {
+            pelicula = new Pelicula(pelicula[0], pelicula[1], pelicula[2], pelicula[3], pelicula[4], pelicula[5], pelicula[6]);
+            pelicula.mostrarFichaTecnica();
+        }
+
+    </script>
+</body>
+
+</html>

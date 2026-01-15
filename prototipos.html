@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototipos</title>
+</head>
+
+<body>
+    <h1>Fundamentos de Javascript</h1>
+    <script>
+        const animal = {
+            nombre: "Snoopy",
+            sonar() {
+                console.log("Hago sonidos porque estoy vivo");
+            }
+        }
+
+        const animal2 = {
+            nombre: "Lola Bunny",
+            sonar() {
+                console.log("Hago sonidos porque estoy vivo");
+            }
+        }
+
+        console.log(animal);
+        console.log(animal2);
+
+
+        //Funcion constructora
+        function Animal(nombre, genero) {  //Atributos y metodos en la función constructora van antepuestos por this
+            this.nombre = nombre;
+            this.genero = genero;
+
+            this.sonar = function () { // La función constructora no debe definirse como arrow function,
+                // ya que las arrow functions no tienen su propio "this" y heredan
+                // el contexto del bloque padre, lo que impediría crear instancias correctamente.
+                console.log("Hago sonidos porque estoy vivo");
+            }
+        }
+
+        // const snoopy = new Animal("Snoopy", "Macho"),
+        //     lolaBunny = new Animal("Lola Bunny", "Hembra");
+
+
+        //Herencia Prototípica
+        function Perro(nombre, genero, tamanio) {
+            this.super = Animal;
+            this.super(nombre, genero);
+            this.tamanio = tamanio;
+        }
+
+        //Perro está heredando de animal
+        Perro.prototype = new Animal();
+        Perro.prototype.constructor = Perro;
+
+        //Sobre escritura de métodos del Prototipo padre en el hijo
+        Perro.prototype.sonar = function () {
+            console.log("Soy un perro y mi sonido es un ladrido");
+        }
+
+        //Creación de un método propio
+        Perro.prototype.ladrar = function () {
+            console.log("Guauuu Guauuu !!!");
+        }
+
+        const snoopy = new Perro("Snoopy", "Macho", "Mediano");
+        console.log(snoopy);
+
+        snoopy.ladrar();
+
+
+        // Función constructora
+        function Persona(nombre, edad) {
+            this.nombre = nombre;
+            this.edad = edad;
+        }
+
+        // Asignamos un método al prototipo
+        Persona.prototype.saludar = function () {
+            console.log(`Hola, soy ${this.nombre} y tengo ${this.edad} años`);
+        };
+
+        // Creamos dos instancias
+        const ana = new Persona("Ana", 25);
+        const juan = new Persona("Juan", 30);
+
+        // Ambas instancias pueden usar el mismo método
+        ana.saludar();  // Hola, soy Ana y tengo 25 años
+        juan.saludar(); // Hola, soy Juan y tengo 30 años
+
+        console.log(ana);
+
+
+
+    </script>
+</body>
+
+</html>

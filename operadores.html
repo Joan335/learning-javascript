@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operadores</title>
+</head>
+
+<body>
+    <h1>Fundamentos de JavaScript</h1>
+    <script>
+        //Aritmeticos
+        let a = 5 + (5 - 10) * 3; //Los parentesis se resuelven de primeros respetando la jerarquia de las operaciones
+
+        //Relacionales
+
+        /*
+        = 1 igual es asignación de variable
+        == 2 iguales es comparación de valores
+        === 3 iguales es comparación de tipo de dato y valor
+        */
+
+        console.log(7 == 7);
+        console.log("7" == 7);
+        console.log(0 == false);
+
+        console.log(7 === 7);
+        console.log("7" === 7);
+        console.log(0 === false);
+
+        //Logicos
+        /*
+        ! - Not: niega, lo que es verdadero lo vuelve falso y viceversa.
+        || - Or: Cuando tengo 2 o más condiciones, con que una se cumpla, el OR validará
+        && - And: Cuando tengo 2 o más condiciones, todas tienen que cumplirse, es decir ser verdadera, el OR validará
+        */
+        console.log(!true);
+        console.log(!false);
+        console.log((9 === 9)||("9" === 9));
+        console.log((9 === 9)&&("9" === 9));
+    </script>
+</body>
+
+</html>

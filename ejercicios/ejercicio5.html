@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 5</title>
+</head>
+<body>
+    <h1>Ejercicios 5</h1>
+    <script>
+        /*
+        15) Programa una función para convertir números de base binaria a decimal y viceversa, pe. miFuncion(100,2) devolverá 4 base 10.
+        16) Programa una función que devuelva el monto final después de aplicar un descuento a una cantidad dada, pe. miFuncion(1000, 20) devolverá 800.
+        17) Programa una función que dada una fecha válida determine cuantos años han pasado hasta el día de hoy, pe. miFuncion(new Date(1984,4,23)) devolverá 35 años (en 2020).
+        */
+
+        //Ejercicio #15
+        const conversorNumeros = (numero = undefined, base = undefined) => {
+            if (numero === undefined) return console.warn("No ingresaste un número");
+
+            if (typeof numero !== "number" || Number.isNaN(numero)) return console.error(`El valor "${numero}" ingresado, NO es un número`);
+
+            if (base === undefined) return console.warn("No ingresaste una base");
+
+            if (typeof base !== "number" || Number.isNaN(numero) || (base !== 10 && base !== 2)) return console.error(`El valor "${base}" ingresado, NO es una base valida debe ser 2 o 10`);
+            
+            let numeroConvertido = 0;
+            
+            if (base === 10) {                                
+                let residuos = [];
+
+                let cociente = numero / 2;
+                residuos.push(numero % 2);
+
+                while (cociente > 0) {
+                    residuos.push(cociente % 2);
+                    cociente = parseInt(cociente / 2);
+                }
+
+                numeroConvertido = residuos.reverse().join("");
+                return console.info(`El numero decimal ${numero} en base 2 es ${numeroConvertido}`);
+            } else if (base === 2) {
+                let numeroSeparado = [...numero.toString()].map(Number);
+                let exponente = numeroSeparado.length - 1
+                
+                for (const num of numeroSeparado) {
+                    if (num !== 0 && num !== 1) {
+                        return console.error(`El numero ${numero} no es binario`)
+                    }
+                    numeroConvertido += num * Math.pow(2, (exponente));
+                    exponente--;
+                }
+
+                return console.info(`El numero binario ${numero} en base 10 es ${numeroConvertido}`);
+            } 
+        }
+
+        conversorNumeros(100, 2);
+        conversorNumeros(100, 10);
+
+        //Ejercicio #16
+        const aplicarDescuento = (precio = undefined, descuento = undefined) => {
+            if (precio === undefined) return console.warn("No ingresaste un precio");
+
+            if (typeof precio !== "number" || Number.isNaN(precio) || precio < 0) return console.error(`El valor "${precio}" ingresado, NO es un precio valido`);
+
+            if (descuento === undefined) return console.warn("No ingresaste un descuento");
+
+            if (typeof descuento !== "number" || Number.isNaN(descuento) || ((descuento < 0) || (descuento > 100))) return console.error(`El valor "${descuento}" ingresado, NO es un descuento valido`);
+
+            return console.info(precio - (precio * descuento/100));
+        }
+
+        aplicarDescuento(1000, 20);
+
+        //Ejercicio #17
+        const calcularAnios = (fecha = undefined) => {
+            if (!(fecha instanceof Date)) {
+                return console.error("Debes pasar un objeto Date válido");
+            }
+
+            let fechaActual = new Date();
+            
+            let aniosTranscurridos = fechaActual.getFullYear() - fecha.getFullYear();
+
+            console.info(fechaActual.getMonth() - fecha.getMonth())
+
+            if ((fechaActual.getMonth() - fecha.getMonth()) <= 0) {
+                if ((fechaActual.getMonth() - fecha.getMonth()) == 0) {
+                    if ((fechaActual.getDate() - fecha.getDate()) > 0) {
+                        aniosTranscurridos++;
+                    }
+                }
+                aniosTranscurridos--;
+            }    
+            return console.info(`Desde ${fecha.toLocaleDateString()} hasta ${fechaActual.toLocaleDateString() } han transcurrido ${aniosTranscurridos} años`);
+        }
+
+        calcularAnios(new Date(1984, 8, 30))
+
+        //SOLUCIONES JON MIRCHA
+
+        //Ejercicio #15
+        const convertirBinarioDecimal = (numero = undefined, base = undefined) => {
+            if (numero === undefined) return console.warn("No ingresaste un número a convertir");
+
+            if (typeof numero !== "number") return console.error(`El valor "${numero}" ingresado, NO es un número`);
+
+            if (base === undefined) return console.warn("No ingresaste la base a convertir");
+
+            if (typeof base !== "number") return console.error(`El valor "${base}" ingresado, NO es un número`);
+
+            if (base === 2) {
+                return console.info(`${numero} base ${base} = ${parseInt(numero, base)} base 10`);
+            } else if (base === 10) {
+                return console.info(`${numero} base ${base} = ${numero.toString(base)} base 2`);
+            } else {
+                return console.error("El tipo de base a convertir no es valido");
+            }
+        }
+
+        // convertirBinarioDecimal();
+        // convertirBinarioDecimal("2");
+        // convertirBinarioDecimal(100);
+        // convertirBinarioDecimal(100, "2");
+        // convertirBinarioDecimal(100, 2);
+        // convertirBinarioDecimal(4, 10);
+        // convertirBinarioDecimal(114, 10);
+        // convertirBinarioDecimal(114, 3);
+
+        //Ejercicio #16
+        const aplicarDescuentoJon = (monto = undefined, descuento = 0) => {
+            if (monto === undefined) return console.warn("No ingresaste el monto");
+
+            if (typeof monto !== "number") return console.error(`El valor "${monto}" ingresado, NO es un número`);
+
+            if (monto === 0) return console.error("El monto no puede ser 0");
+
+            if (Math.sign(monto) === -1) return console.error("El monto no puede ser negativo");
+
+            if (typeof descuento !== "number") return console.error(`El valor "${descuento}" ingresado, NO es un número`);
+
+            if (Math.sign(descuento) === -1) return console.error("El descuento no puede ser negativo");
+
+            return console.info(`$${monto} - ${descuento}% = $${monto - ((monto * descuento) / 100)}`)
+        }
+
+        // aplicarDescuentoJon();
+        // aplicarDescuentoJon("200");
+        // aplicarDescuentoJon(0);
+        // aplicarDescuentoJon(-1000);
+        // aplicarDescuentoJon(1000, "20");
+        // aplicarDescuentoJon(1000, -20);
+        // aplicarDescuentoJon(1000);
+        // aplicarDescuentoJon(1000, 25);
+
+        //Ejercicio #17
+        const calcularAniosJon = (fecha = undefined) => {
+            if (fecha === undefined) return console.warn("No ingresaste la fecha");
+
+            if (!(fecha instanceof Date)) return console.error("El valor que ingresaste no es una fecha válida");
+
+            let hoyMenosFecha = new Date().getTime() - fecha.getTime(),
+            aniosEnMS = 1000 * 60 * 60 * 24 * 365,
+            aniosHumanos = Math.floor(hoyMenosFecha / aniosEnMS);
+
+            return (Math.sign(aniosHumanos) === -1)
+                ? console.info(`Faltan ${Math.abs(aniosHumanos)} años para el ${fecha.getFullYear()}.`)
+                : (Math.sign(aniosHumanos) === 1)
+                    ? console.info(`Han pasado ${aniosHumanos} años, desde ${fecha.getFullYear()}.`)
+                    : console.info(`Estamos en el año actual ${fecha.getFullYear()}.`)
+        }
+
+        calcularAniosJon();
+        calcularAniosJon({});
+        calcularAniosJon(false);
+        calcularAniosJon(new Date());
+        calcularAniosJon(new Date(1984, 4, 23));
+        calcularAniosJon(new Date(1884, 4, 23));
+        calcularAniosJon(new Date(2084, 4, 23));
+        calcularAniosJon(new Date(2000, 5, 9));
+
+    </script>
+</body>
+</html>
