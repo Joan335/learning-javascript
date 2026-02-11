@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Sitio con AJAX</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <header class="header">
+        <div class="icono">
+            <img src="assets/fox-header.svg" alt="icono zorro" class="fox-header">
+        </div>
+        <div class="links-sections">
+            <a href="" data-page="home">Home</a>
+            <a href="" data-page="acerca">Acerca</a>
+            <a href="" data-page="servicios">Servicios</a>
+            <a href="" data-page="contacto">Contacto</a>
+        </div>
+    </header>
+    <section id="section-page"></section>
+    <script>
+        const d = document,
+            $links = document.querySelectorAll(".links-sections a"),
+            $section = document.getElementById("section-page");
+
+        const cargarPagina = (pagina) => {
+            fetch(`secciones/${pagina}.html`)
+                .then(res => {
+                    if (!res.ok) throw res;
+                    return res.text();
+                })
+                .then(html => {
+                    $section.innerHTML = html;
+                }).catch(err => {
+                    $section.innerHTML = `<p>Error ${err.status}: ${err.message}</p>`;
+                    console.log(err);
+                });
+        };
+
+        cargarPagina("home");
+
+        d.addEventListener("click", e => {
+            if (e.target.matches(".links-sections a")) {
+                e.preventDefault();
+                cargarPagina(e.target.dataset.page);
+            }
+        });
+    </script>
+    <footer>
+        <p>sitio diseñado por Kenai</p>
+    </footer>
+</body>
+</html>

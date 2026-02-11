@@ -1,0 +1,185 @@
+/* :root {
+    --main-font: sans-serif;
+    --font-size: 16px;
+    --main-color: antiquewhite;
+    --container-width: 1200px;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+html {
+    box-sizing: border-box;
+    font-family: sans-serif;
+    font-size: 16px;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    width: 100%;
+    position: sticky;
+    top: 0;
+    padding: .5rem 10rem;
+    background-color: var(--main-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fox-header {   
+    height: 7rem;
+    width: auto;
+}
+
+.links-sections {
+    display: flex;
+    gap: 2rem;
+    font-size: 1.5rem;
+    
+}
+
+.links-sections a {
+    color: chocolate;
+}
+
+.img-section {
+    height: 40rem;
+    width: 35rem;
+}
+
+section {
+    padding: 0 10rem;
+    flex-grow: 1;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
+
+:root {
+    --main-font: sans-serif;
+    --font-size: 16px;
+    --main-color: antiquewhite;
+    --container-width: 1200px;
+    --side-padding: 10%;
+    /* Usamos porcentajes en lugar de rem fijos */
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+    /* Corregido de inherit para mejor control */
+}
+
+html {
+    font-family: var(--main-font);
+    font-size: var(--font-size);
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- HEADER --- */
+.header {
+    width: 100%;
+    position: sticky;
+    top: 0;
+    padding: 1rem var(--side-padding);
+    background-color: var(--main-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+}
+
+.fox-header {
+    height: 5rem;
+    /* Reducido un poco para que no ocupe tanto espacio */
+    width: auto;
+}
+
+.links-sections {
+    display: flex;
+    gap: 2rem;
+    font-size: 1.2rem;
+}
+
+.links-sections a {
+    color: chocolate;
+    /* text-decoration: none; */
+    /* font-weight: bold; */
+}
+
+/* --- SECCIÓN DE CONTENIDO --- */
+section {
+    padding: 2rem var(--side-padding);
+    flex-grow: 1;
+}
+
+/* Las imágenes internas deben ser flexibles */
+.img-section {
+    max-width: 60%;
+    /* Evita que la imagen se salga de la pantalla */
+    height: auto;
+    /* Mantiene la proporción */
+    display: block;
+    margin: 0 auto;
+}
+
+footer {
+    padding: 1rem;
+    background-color: #eee;
+    display: flex;
+    justify-content: center;
+}
+
+/* --- MEDIA QUERIES (RESPONSIVE) --- */
+
+/* Para tablets y móviles grandes */
+@media (max-width: 768px) {
+    :root {
+        --side-padding: 5%;
+        /* Menos margen en tablets */
+    }
+
+    .header {
+        flex-direction: column;
+        /* Apila el logo y los links */
+        gap: 1rem;
+    }
+
+    .fox-header {
+        height: 3rem;
+    }
+}
+
+/* Para móviles pequeños */
+@media (max-width: 480px) {
+    .links-sections {
+        gap: 1rem;
+        font-size: 1rem;
+        flex-wrap: wrap;
+        /* Si son muchos links, saltan de línea */
+        justify-content: center;
+    }
+
+    section {
+        padding: 1rem 5%;
+    }
+}
